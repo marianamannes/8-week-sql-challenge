@@ -9,8 +9,9 @@ In the beggining of 2021, Danny opened up a restaurant and now wants to answer s
 
 There are three key datasets, which are represented by the relationshop diagram below.
 
+
 <p align="center">
-<img src="https://i.ibb.co/Qf8gHWm/Captura-de-tela-2022-06-25-204656.png" width=40% height=40%>
+<img src="https://i.ibb.co/Qf8gHWm/Captura-de-tela-2022-06-25-204656.png" width=60% height=60%>
 
 ***
 
