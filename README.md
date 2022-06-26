@@ -7,7 +7,7 @@ This repository contains my solutions and studies for the [8 Week SQL Challenge]
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/1.png" width=40% height=40%>
 
-In the beggining of 2021, Danny opened up a restaurant and wants to answer some questions about the preferences of the costumers, including the pattern of visitis, their purchases and favorite menu items. 
+In the beggining of 2021, Danny opened up a restaurant and now wants to answer some questions about the preferences of the costumers, including the pattern of visitis, their purchases and favorite menu items. 
 
 There are three key datasets, which are represented by the relationshop diagram below.
 
