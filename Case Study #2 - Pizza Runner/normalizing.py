@@ -4,7 +4,7 @@ import pandas as pd
 con = c.connect(host="localhost", 
                 database="pizza_runner", 
                 user="root", 
-                password="mariana")
+                password="")
 
 # Creating new table exclusions_norm
 
