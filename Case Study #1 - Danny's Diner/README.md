@@ -20,7 +20,8 @@ There are three key datasets, which are represented by the relationshop diagram 
 ### 1. What is the total amount each customer spent at the restaurant?
 
 ```sql
-SELECT s.customer_id AS "Customer ID", CONCAT("$ ", SUM(m.price)) "Total Amount"
+SELECT s.customer_id AS "Customer ID",
+	CONCAT("$ ", SUM(m.price)) "Total Amount"
 FROM sales s
 INNER JOIN menu m
 ON s.product_id = m.product_id
@@ -38,7 +39,8 @@ GROUP BY customer_id;
 ### 2. How many days has each customer visited the restaurant?
 
 ```sql
-SELECT customer_id AS "Customer ID", COUNT(DISTINCT order_date) AS "Number of visits"
+SELECT customer_id AS "Customer ID",
+	COUNT(DISTINCT order_date) AS "Number of visits"
 FROM sales
 GROUP BY customer_id;
 ```
@@ -62,7 +64,9 @@ FROM sales s
 INNER JOIN menu m
 ON s.product_id = m.product_ID
 ORDER BY order_date)
-SELECT CustomerID AS "CustomerID", Item as "Item Name", ItemNumber as "Item Number"
+SELECT CustomerID AS "CustomerID",
+	Item as "Item Name",
+	ItemNumber as "Item Number"
 FROM cte_table
 WHERE ItemNumber = 1;
 ```
@@ -78,7 +82,8 @@ WHERE ItemNumber = 1;
 ### 4. What is the most purchased item on the menu and how many times was it purchased by all customers?
 
 ```sql
-SELECT m.product_name AS "Product Name", COUNT(s.product_id) AS "Times Purchased"
+SELECT m.product_name AS "Product Name",
+	COUNT(s.product_id) AS "Times Purchased"
 FROM sales s 
 INNER JOIN menu m
 ON s.product_id = m.product_id
@@ -105,7 +110,10 @@ WITH cte_table AS(
 	INNER JOIN menu m
 	ON s.product_id = m.product_id
 	GROUP BY s.customer_id, m.product_name)
-SELECT CustomerID AS "Customer ID", ProductName AS "Product Most Popular", TimesPurchased AS "Times Purchased", PopularityRank AS "Popularity Rank"
+SELECT CustomerID AS "Customer ID",
+	ProductName AS "Product Most Popular",
+	TimesPurchased AS "Times Purchased",
+	PopularityRank AS "Popularity Rank"
 FROM cte_table
 GROUP BY CustomerID, ProductName
 HAVING PopularityRank = 1;
@@ -134,13 +142,18 @@ LEFT JOIN members mm
 ON s.customer_id = mm.customer_id;
 
 WITH cte_table AS(
-SELECT t.CustomerID AS CustomerID, m.product_name as ProductName, t.OrderDate AS OrderDate,
-	RANK() OVER (PARTITION BY t.CustomerID ORDER BY t.OrderDate) AS OrderRank
+	SELECT t.CustomerID AS CustomerID,
+		m.product_name as ProductName,
+		t.OrderDate AS OrderDate,
+		RANK() OVER (PARTITION BY t.CustomerID ORDER BY t.OrderDate) AS OrderRank
 FROM temp_membership t
 INNER JOIN menu m
 ON m.product_id = t.ProductID
 WHERE Membership = "Member")
-SELECT CustomerID AS "Customer ID", ProductName as "Product Name", OrderDate AS "Order Date", OrderRank AS "Order Rank"
+SELECT CustomerID AS "Customer ID",
+	ProductName as "Product Name",
+	OrderDate AS "Order Date",
+	OrderRank AS "Order Rank"
 FROM cte_table
 WHERE OrderRank = 1;
 ```
@@ -156,13 +169,19 @@ WHERE OrderRank = 1;
 
 ```sql
 WITH cte_table AS(
-SELECT t.CustomerID AS CustomerID, m.product_name as ProductName, t.OrderDate AS OrderDate, t.JoinDate as JoinDate,
-	RANK() OVER (PARTITION BY t.CustomerID ORDER BY t.OrderDate DESC) AS OrderRank
+	SELECT t.CustomerID AS CustomerID,
+		m.product_name as ProductName,
+		t.OrderDate AS OrderDate,
+		t.JoinDate as JoinDate,
+		RANK() OVER (PARTITION BY t.CustomerID ORDER BY t.OrderDate DESC) AS OrderRank
 FROM temp_membership t
 INNER JOIN menu m
 ON m.product_id = t.ProductID
 WHERE Membership = "Not Member" AND JoinDate IS NOT NULL)
-SELECT CustomerID AS "Customer ID", ProductName as "Product Name", OrderDate AS "Order Date", OrderRank AS "Order Rank"
+SELECT CustomerID AS "Customer ID",
+	ProductName as "Product Name",
+	OrderDate AS "Order Date",
+	OrderRank AS "Order Rank"
 FROM cte_table
 WHERE OrderRank = 1;
 ```
@@ -179,13 +198,17 @@ WHERE OrderRank = 1;
 
 ```sql
 WITH cte_table AS(
-SELECT t.CustomerID AS CustomerID, m.price as AmountSpent, t.OrderDate AS OrderDate, t.JoinDate as JoinDate,
-	RANK() OVER (PARTITION BY t.CustomerID ORDER BY t.OrderDate DESC) AS OrderRank
+	SELECT t.CustomerID AS CustomerID,
+		m.price as AmountSpent,
+		t.OrderDate AS OrderDate,
+		t.JoinDate as JoinDate,
+		RANK() OVER (PARTITION BY t.CustomerID ORDER BY t.OrderDate DESC) AS OrderRank
 FROM temp_membership t
 INNER JOIN menu m
 ON m.product_id = t.ProductID
 WHERE Membership = "Not Member" AND JoinDate IS NOT NULL)
-SELECT CustomerID AS "Customer ID", CONCAT("$ ", SUM(AmountSpent)) as "Total Amount Spent"
+SELECT CustomerID AS "Customer ID",
+	CONCAT("$ ", SUM(AmountSpent)) as "Total Amount Spent"
 FROM cte_table
 GROUP BY CustomerID;
 ```
@@ -204,7 +227,7 @@ In this question, it was not specified if the points were valid for members only
 ```sql
 SELECT t.CustomerID AS "Customer ID", 
 	SUM(CASE WHEN(m.product_name = "Sushi")=TRUE THEN m.price*10*2
-            ELSE m.price*10 END) AS "Points"
+	ELSE m.price*10 END) AS "Points"
 FROM temp_membership t
 INNER JOIN menu m
 ON t.ProductID = m.product_id
