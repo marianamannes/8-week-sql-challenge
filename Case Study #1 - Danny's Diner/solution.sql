@@ -50,7 +50,7 @@ WITH cte_table AS(
 SELECT CustomerID AS "Customer ID",
 	ProductName AS "Product Most Popular",
 	TimesPurchased AS "Times Purchased",
-    PopularityRank AS "Popularity Rank"
+	PopularityRank AS "Popularity Rank"
 FROM cte_table
 GROUP BY CustomerID, ProductName
 HAVING PopularityRank = 1;
@@ -61,8 +61,8 @@ DROP TABLE IF EXISTS temp_membership;
 CREATE TEMPORARY TABLE temp_membership AS
 SELECT s.customer_id AS CustomerID, 
 	s.order_date AS OrderDate,
-    s.product_id AS ProductID,
-    mm.join_date AS JoinDate,
+	s.product_id AS ProductID,
+	mm.join_date AS JoinDate,
 	CASE WHEN(s.order_date >= mm.join_date)=TRUE THEN "Member"
 	ELSE "Not Member" END AS Membership
 FROM sales s
@@ -72,7 +72,7 @@ ON s.customer_id = mm.customer_id;
 WITH cte_table AS(
 SELECT t.CustomerID AS CustomerID, 
 	m.product_name as ProductName,
-    t.OrderDate AS OrderDate,
+	t.OrderDate AS OrderDate,
 	RANK() OVER (PARTITION BY t.CustomerID ORDER BY t.OrderDate) AS OrderRank
 FROM temp_membership t
 INNER JOIN menu m
@@ -80,8 +80,8 @@ ON m.product_id = t.ProductID
 WHERE Membership = "Member")
 SELECT CustomerID AS "Customer ID",
 	ProductName as "Product Name",
-    OrderDate AS "Order Date",
-    OrderRank AS "Order Rank"
+	OrderDate AS "Order Date",
+	OrderRank AS "Order Rank"
 FROM cte_table
 WHERE OrderRank = 1;
 
@@ -89,8 +89,8 @@ WHERE OrderRank = 1;
 WITH cte_table AS(
 SELECT t.CustomerID AS CustomerID, 
 	m.product_name as ProductName,
-    t.OrderDate AS OrderDate,
-    t.JoinDate as JoinDate,
+	t.OrderDate AS OrderDate,
+	t.JoinDate as JoinDate,
 	RANK() OVER (PARTITION BY t.CustomerID ORDER BY t.OrderDate DESC) AS OrderRank
 FROM temp_membership t
 INNER JOIN menu m
@@ -98,8 +98,8 @@ ON m.product_id = t.ProductID
 WHERE Membership = "Not Member" AND JoinDate IS NOT NULL)
 SELECT CustomerID AS "Customer ID",
 	ProductName as "Product Name",
-    OrderDate AS "Order Date",
-    OrderRank AS "Order Rank"
+	OrderDate AS "Order Date",
+	OrderRank AS "Order Rank"
 FROM cte_table
 WHERE OrderRank = 1;
 
@@ -108,7 +108,7 @@ WITH cte_table AS(
 SELECT t.CustomerID AS CustomerID, 
 	m.price as AmountSpent, 
 	t.OrderDate AS OrderDate, 
-    t.JoinDate as JoinDate, 
+	t.JoinDate as JoinDate, 
 	RANK() OVER (PARTITION BY t.CustomerID ORDER BY t.OrderDate DESC) AS OrderRank
 FROM temp_membership t
 INNER JOIN menu m
@@ -122,7 +122,7 @@ GROUP BY CustomerID;
 # If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
 SELECT t.CustomerID AS "Customer ID", 
 	SUM(CASE WHEN(m.product_name = "Sushi")=TRUE THEN m.price*10*2
-    ELSE m.price*10 END) AS "Points"
+	ELSE m.price*10 END) AS "Points"
 FROM temp_membership t
 INNER JOIN menu m
 ON t.ProductID = m.product_id

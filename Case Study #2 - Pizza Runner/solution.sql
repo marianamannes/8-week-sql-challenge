@@ -29,9 +29,9 @@ ON cte.pizza_id = p.pizza_id
 GROUP BY p.pizza_name;
 
 # How many Vegetarian and Meatlovers were ordered by each customer?
-SELECT c.customer_id AS "Customer ID", 
+SELECT c.customer_id AS "Customer ID",
 	SUM(CASE WHEN p.pizza_name = "Meatlovers" THEN 1 ELSE 0 END) AS "Meatlovers",
-    SUM(CASE WHEN p.pizza_name = "Vegetarian" THEN 1 ELSE 0 END) AS "Vegetarian"
+	SUM(CASE WHEN p.pizza_name = "Vegetarian" THEN 1 ELSE 0 END) AS "Vegetarian"
 FROM customer_orders c
 INNER JOIN pizza_names p
 ON c.pizza_id = p.pizza_id
@@ -59,15 +59,15 @@ LIMIT 1;
 WITH cte_table AS(
 SELECT c.order_id AS "order_id",
 	c.customer_id AS "customer_id",
-    c.exclusions AS "exclusions",
-    c.extras AS "extras"
+	c.exclusions AS "exclusions",
+	c.extras AS "extras"
 FROM customer_orders c 
 INNER JOIN runner_orders r
 ON c.order_id = r.order_id
 WHERE r.cancellation IS NULL)
 SELECT cte.customer_id, 
 	SUM(CASE WHEN ((cte.exclusions = "") AND (cte.extras = "")) THEN 1 ELSE 0 END) AS "No Changes",
-    SUM(CASE WHEN ((cte.exclusions <> "") OR (cte.extras <> "")) THEN 1 ELSE 0 END) AS "At Least 1 Change"
+	SUM(CASE WHEN ((cte.exclusions <> "") OR (cte.extras <> "")) THEN 1 ELSE 0 END) AS "At Least 1 Change"
 FROM cte_table cte
 GROUP BY cte.customer_id
 ORDER BY cte.customer_id;
@@ -76,8 +76,8 @@ ORDER BY cte.customer_id;
 WITH cte_table AS(
 	SELECT c.order_id AS "order_id",
 		c.customer_id AS "customer_id",
-        c.exclusions AS "exclusions",
-        c.extras AS "extras"
+		c.exclusions AS "exclusions",
+		c.extras AS "extras"
 	FROM customer_orders c 
 	INNER JOIN runner_orders r
 	ON c.order_id = r.order_id
@@ -102,7 +102,7 @@ ORDER BY DAYOFWEEK(order_time);
 # Runner and Customer Experience
 # How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
 SELECT (WEEK(registration_date) - WEEK("2021-01-01"))+1 AS "Week",
-		COUNT(runner_id) AS "Runners"
+	COUNT(runner_id) AS "Runners"
 FROM runners
 GROUP BY (WEEK(registration_date) - WEEK("2021-01-01"))+1;
 
@@ -152,7 +152,7 @@ WHERE duration IS NOT NULL;
 SELECT r.runner_id AS "Runner", 
 	c.order_id AS "Order ID",
 	ROUND(r.duration/60,2) AS "Duration (h)",
-    r.distance AS "Distance (Km)",
+	r.distance AS "Distance (Km)",
 	ROUND(r.distance/(r.duration/60),2) AS "Average Speed (Km/h)"
 FROM runner_orders r
 LEFT JOIN customer_orders c
