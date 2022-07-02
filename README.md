@@ -20,7 +20,6 @@ View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tr
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/2.png" width=40% height=40%>
 
-## Problem Statement
 Danny has launched a pizza delivery app where customers can place orders and runners can deliver them. He needs help analyzing his business data.
 
 There are six key datasets, which are represented by the relationshop diagram below.
