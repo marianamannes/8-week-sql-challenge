@@ -39,7 +39,7 @@ WHERE extras = "null" OR extras IS NULL;
 SELECT * from customer_orders;
 ```
 
-|order_id	customer_id	pizza_id	exclusions	extras	order_time|
+|order_id|customer_id|pizza_id|exclusions|extras|order_time|
 |-----|-----|-----|-----|-----|-----|
 |1|101|1| | |2020-01-01 18:05:02|
 |2|101|1| | |2020-01-01 19:00:52|
@@ -316,7 +316,7 @@ GROUP BY p.pizza_name;
 
 ***
 
-### 5. What was the maximum number of pizzas delivered in a single order?
+### 5. How many Vegetarian and Meatlovers were ordered by each customer?
 
 ```sql
 SELECT c.customer_id AS "Customer ID",
@@ -615,8 +615,8 @@ GROUP BY runner_id;
 ### 1. What are the standard ingredients for each pizza?
 
 ```sql
-SELECT n.pizza_name, 
-	GROUP_CONCAT(t.topping_name SEPARATOR ", ")
+SELECT n.pizza_name AS "Pizza Name", 
+	GROUP_CONCAT(t.topping_name SEPARATOR ", ") AS "Standard Ingredients"
 FROM pizza_recipes_norm r
 INNER JOIN pizza_names n
 ON r.pizza_id = n.pizza_id
@@ -625,7 +625,7 @@ ON r.toppings = t.topping_id
 GROUP BY n.pizza_name;
 ```
 
-|pizza_name|GROUP_CONCAT(t.topping_name SEPARATOR ", ")|
+|Pizza Name|Standard Ingredients|
 |-----|-----|
 |Meatlovers|Bacon, BBQ Sauce, Beef, Cheese, Chicken, Mushrooms, Pepperoni, Salami|
 |Vegetarian|Cheese, Mushrooms, Onions, Peppers, Tomatoes, Tomato Sauce|

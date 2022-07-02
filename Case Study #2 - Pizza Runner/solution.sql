@@ -170,8 +170,8 @@ GROUP BY runner_id;
 
 # Ingredient Optimisation
 # What are the standard ingredients for each pizza?
-SELECT n.pizza_name, 
-	GROUP_CONCAT(t.topping_name SEPARATOR ", ")
+SELECT n.pizza_name AS "Pizza Name", 
+	GROUP_CONCAT(t.topping_name SEPARATOR ", ") AS "Standard Ingredients"
 FROM pizza_recipes_norm r
 INNER JOIN pizza_names n
 ON r.pizza_id = n.pizza_id
