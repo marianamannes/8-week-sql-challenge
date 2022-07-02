@@ -166,3 +166,35 @@ SELECT runner_id AS "Runner ID",
 	CONCAT(ROUND((SUM(CASE WHEN cancellation IS NULL = TRUE THEN 1 ELSE 0 END))/(COUNT(order_id))*100,2),"%") AS "Successful delivery percentage"
 FROM runner_orders
 GROUP BY runner_id;
+
+
+# Ingredient Optimisation
+# What are the standard ingredients for each pizza?
+SELECT n.pizza_name, 
+	GROUP_CONCAT(t.topping_name SEPARATOR ", ")
+FROM pizza_recipes_norm r
+INNER JOIN pizza_names n
+ON r.pizza_id = n.pizza_id
+INNER JOIN pizza_toppings t
+ON r.toppings = t.topping_id
+GROUP BY n.pizza_name;
+
+# What was the most commonly added extra?
+SELECT t.topping_name "Most commonly added extra", 
+	COUNT(e.extras) AS "Times Added"
+FROM extras_norm e
+INNER JOIN pizza_toppings t
+ON e.extras = t.topping_id
+GROUP BY t.topping_name
+ORDER BY COUNT(e.extras) DESC
+LIMIT 1;
+
+# What was the most common exclusion?
+SELECT t.topping_name "Most common exclusion", 
+	COUNT(e.exclusions) AS "Times Excluded"
+FROM exclusions_norm e
+INNER JOIN pizza_toppings t
+ON e.exclusions = t.topping_id
+GROUP BY t.topping_name
+ORDER BY COUNT(e.exclusions) DESC
+LIMIT 1;
