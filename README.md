@@ -28,3 +28,16 @@ There are six key datasets, which are represented by the relationshop diagram be
 <img src="https://i.ibb.co/xM5LBS8/Capturar.png" width=60% height=60%>
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%232%20-%20Pizza%20Runner)
+
+## 🥑 Case Study #3 - Foodie-Fi
+<p align="center">
+<img src="https://8weeksqlchallenge.com/images/case-study-designs/3.png" width=40% height=40%>
+
+Danny created a new straming device that only had food related content. It's a subscription based business, and the goal of this case study is to answer some questions about the customers' data.
+
+There are two key datasets, which are represented by the relationshop diagram below.
+
+<p align="center">
+<img src="https://8weeksqlchallenge.com/images/case-study-3-erd.png" width=60% height=60%>
+
+View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%233%20-%20Foodie-Fi)
