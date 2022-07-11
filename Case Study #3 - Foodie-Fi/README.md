@@ -89,6 +89,7 @@ SELECT SUM(CASE WHEN plan_id = "4" THEN 1 ELSE 0 END) AS "Number of churns",
 ```
 
 |Number of churns|Percentage of churns|
+|-----|-----|
 |307|30.7%|
 
 ***
