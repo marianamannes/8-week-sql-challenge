@@ -63,9 +63,6 @@ ON c.region_id = r.region_id
 GROUP BY region_name
 ORDER BY COUNT(DISTINCT(c.customer_id)) DESC;
 ```
-||
-|-----||-----|
-||
 
 |Region|Customers|
 |-----|-----|
