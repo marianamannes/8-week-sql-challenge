@@ -53,4 +53,4 @@ There are three key datasets, which are represented by the relationshop diagram 
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-4-erd.png" width=60% height=60%>
 
-View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%233%20-%20Data-Bank)
+View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%234%20-%20Data%20Bank)
