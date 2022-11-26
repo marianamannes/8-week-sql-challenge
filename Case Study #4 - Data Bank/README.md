@@ -81,8 +81,8 @@ ORDER BY COUNT(DISTINCT(c.customer_id)) DESC;
 
 ```sql
 SELECT txn_type AS "Transaction type", 
-		COUNT(txn_type) AS "Count",
-        CONCAT("$ ",SUM(txn_amount)) AS "Amount"
+	COUNT(txn_type) AS "Count",
+	CONCAT("$ ",SUM(txn_amount)) AS "Amount"
 FROM customer_transactions
 GROUP BY txn_type;
 ```
@@ -104,8 +104,8 @@ WITH cte_table AS(
 		COUNT(txn_type) AS count_txn,
 		SUM(txn_amount) AS sum_txn
 	FROM customer_transactions
-    WHERE txn_type = "deposit"
-    GROUP BY customer_id)
+	WHERE txn_type = "deposit"
+	GROUP BY customer_id)
 SELECT AVG(count_txn) AS "Avg Count",
 	CONCAT("$ ",SUM(sum_txn)/COUNT(customer_id)) AS "Avg Amount"
 FROM cte_table;
@@ -156,7 +156,7 @@ WITH cte_table AS(
 	ORDER BY customer_id, MONTH(txn_date))
 SELECT customer_id AS "Customer",
 	txn_month AS "Month",
-    CONCAT("$ ", SUM(transactions) OVER (PARTITION BY customer_id ORDER BY customer_id, txn_month ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)) AS "Balance"
+	CONCAT("$ ", SUM(transactions) OVER (PARTITION BY customer_id ORDER BY customer_id, txn_month ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)) AS "Balance"
 FROM cte_table
 GROUP BY customer_id, txn_month;
 ```
