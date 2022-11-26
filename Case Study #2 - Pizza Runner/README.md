@@ -115,7 +115,7 @@ SELECT * FROM runner_orders;
 |9|2|	|	|	|Customer Cancellation|
 |10|1|2020-01-11 18:50:20|10|10|	|	
 
-Finally, the tables pizza_recipes and customer_orders needed to be normalizated. For that, I chose to build a script in Python connecting with the database to create new normalizated tables for the columns unnormalized in customer_orders and for the table pizza_recipes.
+Finally, the tables pizza_recipes and customer_orders needed to be normalized. For that, I chose to build a script in Python connecting with the database to create new normalized tables for the columns unnormalized in customer_orders and for the table pizza_recipes.
 
 ```python
 import mysql.connector as c

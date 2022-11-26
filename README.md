@@ -1,6 +1,6 @@
 # 8 Week SQL Challenge
 
-This repository contains my solutions and studies for the [8 Week SQL Challenge](https://8weeksqlchallenge.com/), in which many different databases were made available and the objective was to explore and to solve business problems with SQL language. In this case, I chose to solve the challenges with MYSQL.
+This repository contains my solutions and studies for the [8 Week SQL Challenge](https://8weeksqlchallenge.com/), in which many different databases were made available and the goal was to explore and to solve business problems with SQL language. In this case, I chose to solve the challenges with MYSQL.
 
 ## 🍜 Case Study #1 - Danny's Diner
 
@@ -33,7 +33,7 @@ View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tr
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/3.png" width=40% height=40%>
 
-Danny created a new straming device that only had food related content. It's a subscription based business, and the goal of this case study is to answer some questions about the customers' data.
+Danny has created a new straming device that only has food related content. It's a subscription based business, and the goal of this case study is to answer some questions about the customers' data.
 
 There are two key datasets, which are represented by the relationshop diagram below.
 
@@ -41,3 +41,16 @@ There are two key datasets, which are represented by the relationshop diagram be
 <img src="https://8weeksqlchallenge.com/images/case-study-3-erd.png" width=60% height=60%>
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%233%20-%20Foodie-Fi)
+
+## 🏦 Case Study #4 - Data Bank
+<p align="center">
+<img src="https://8weeksqlchallenge.com/images/case-study-designs/4.png" width=40% height=40%>
+
+Danny has created a digital bank that also has the world’s most secure distributed data storage platform. This case study is all about calculating metrics, growth and helping the business analyse their data in a smart way to better forecast and plan for their future developments.
+
+There are three key datasets, which are represented by the relationshop diagram below.
+
+<p align="center">
+<img src="https://8weeksqlchallenge.com/images/case-study-4-erd.png" width=60% height=60%>
+
+View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%233%20-%20Data-Bank)

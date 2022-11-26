@@ -5,7 +5,7 @@
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/3.png" width=40% height=40%>
 
 ## Problem Statement
-Danny created a new straming device that only had food related content. It's a subscription based business, and the goal of this case study is to answer some questions about the customers' data.
+Danny has created a new straming device that only has food related content. It's a subscription based business, and the goal of this case study is to answer some questions about the customers' data.
 
 There are two key datasets, which are represented by the relationshop diagram below.
 
