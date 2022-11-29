@@ -54,3 +54,16 @@ There are three key datasets, which are represented by the relationshop diagram 
 <img src="https://8weeksqlchallenge.com/images/case-study-4-erd.png" width=60% height=60%>
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%234%20-%20Data%20Bank)
+
+# 🛒 Case Study #5 - Data Mart
+<p align="center">
+<img src="https://8weeksqlchallenge.com/images/case-study-designs/5.png" width=40% height=40%>
+
+In June 2020 - large scale supply changes were made at Data Mart. All Data Mart products now use sustainable packaging methods in every single step from the farm all the way to the customer. Danny needs help to quantify the impact of this change on the sales performance for Data Mart and it’s separate business areas.
+
+There is only one key dataset, which is represented by the table below.
+
+<p align="center">
+<img src="https://8weeksqlchallenge.com/images/case-study-5-erd.png" width=60% height=60%>
+
+View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%235%20-%20Data%20Mart)
