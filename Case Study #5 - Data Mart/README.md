@@ -1,6 +1,6 @@
 # [8 Week SQL Challenge](https://github.com/marianamannes/8-week-sql-challenge) 
 
-# 🏦 Case Study #5 - Data Mart
+# 🛒 Case Study #5 - Data Mart
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/5.png" width=40% height=40%>
 
@@ -275,6 +275,8 @@ ORDER BY calendar_year, platform;
 |2019|Shopify|183.36|
 |2020|Retail|36.56|
 |2020|Shopify|179.03|
+
+***
 
 ### Before & After Analysis
 
