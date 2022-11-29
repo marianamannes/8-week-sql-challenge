@@ -64,6 +64,6 @@ In June 2020 - large scale supply changes were made at Data Mart. All Data Mart 
 There is only one key dataset, which is represented by the table below.
 
 <p align="center">
-<img src="https://8weeksqlchallenge.com/images/case-study-5-erd.png" width=60% height=60%>
+<img src="https://8weeksqlchallenge.com/images/case-study-5-erd.png" width=40% height=40%>
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%235%20-%20Data%20Mart)
