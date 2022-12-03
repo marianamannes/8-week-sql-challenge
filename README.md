@@ -55,7 +55,7 @@ There are three key datasets, which are represented by the relationshop diagram 
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%234%20-%20Data%20Bank)
 
-# 🛒 Case Study #5 - Data Mart
+## 🛒 Case Study #5 - Data Mart
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/5.png" width=40% height=40%>
 
@@ -67,3 +67,16 @@ There is only one key dataset, which is represented by the table below.
 <img src="https://8weeksqlchallenge.com/images/case-study-5-erd.png" width=40% height=40%>
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%235%20-%20Data%20Mart)
+
+## 🛒 Case Study #6 - Clique Bait
+<p align="center">
+<img src="https://8weeksqlchallenge.com/images/case-study-designs/6.png" width=40% height=40%>
+
+Clique Bait is not like your regular online seafood store - the founder and CEO Danny, was also a part of a digital data analytics team and wanted to expand his knowledge into the seafood industry. In this case study it was required to support Danny’s vision and analyse his dataset and come up with creative solutions to calculate funnel fallout rates for the Clique Bait online store.
+
+There are five key datasets, which are represented by the relationshop diagram below.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/81607668/134619326-f560a7b0-23b2-42ba-964b-95b3c8d55c76.png" width=40% height=40%>
+
+View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%236%20-%20Clique%20Bait)
