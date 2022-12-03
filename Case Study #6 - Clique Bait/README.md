@@ -15,7 +15,9 @@ There are five key datasets, which are represented by the relationshop diagram b
 
 ***
 
-## Digital Analysis
+## Case Study Questions
+
+### Digital Analysis
 
 ### 1. How many users are there?
 

@@ -10,6 +10,8 @@ Danny, the CEO of this trendy fashion company, has asked help to assist the team
 
 ***
 
+## Case Study Questions
+
 ### High Level Sales Analysis
 
 ### 1. What was the total quantity sold for all products?
