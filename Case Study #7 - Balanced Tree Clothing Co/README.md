@@ -6,7 +6,7 @@
 
 ## Problem Statement
 
-Danny, the CEO of this trendy fashion company has asked help to assist the team’s merchandising teams analyse their sales performance and generate a basic financial report to share with the wider business.
+Danny, the CEO of this trendy fashion company, has asked help to assist the team’s merchandising teams analyse their sales performance and generate a basic financial report to share with the wider business.
 
 ***
 
@@ -253,7 +253,7 @@ FROM cte_table;
 ```
 
 |Segment|Product|Revenue|Revenue percentage|
-|-----|-----|-----|-----|-----|
+|-----|-----|-----|-----|
 |Jacket|Indigo Rain Jacket - Womens|71383|19.45%|
 |Jacket|Khaki Suit Jacket - Womens|86296|23.51%|
 |Jacket|Grey Fashion Jacket - Womens|209304|57.03%|

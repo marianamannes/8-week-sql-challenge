@@ -159,6 +159,3 @@ INNER JOIN sales s
 ON s.prod_id = p.product_id
 GROUP BY p.product_name
 ORDER BY 2 DESC;
-
-
-# What is the most common combination of at least 1 quantity of any 3 products in a 1 single transaction?
