@@ -68,7 +68,7 @@ There is only one key dataset, which is represented by the table below.
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%235%20-%20Data%20Mart)
 
-## 🛒 Case Study #6 - Clique Bait
+## 📢 Case Study #6 - Clique Bait
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/6.png" width=40% height=40%>
 
@@ -80,3 +80,11 @@ There are five key datasets, which are represented by the relationshop diagram b
 <img src="https://user-images.githubusercontent.com/81607668/134619326-f560a7b0-23b2-42ba-964b-95b3c8d55c76.png" width=60% height=60%>
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%236%20-%20Clique%20Bait)
+
+## 👚 Case Study #7 - Balanced Tree Clothing Co.
+<p align="center">
+<img src="https://8weeksqlchallenge.com/images/case-study-designs/7.png" width=40% height=40%>
+
+Danny, the CEO of this trendy fashion company has asked you to assist the team’s merchandising teams analyse their sales performance and generate a basic financial report to share with the wider business.
+
+View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%237%20-%20Balanced%20Tree%20Clothing%20Co)
