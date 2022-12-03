@@ -1,17 +1,12 @@
 # [8 Week SQL Challenge](https://github.com/marianamannes/8-week-sql-challenge) 
 
-# 🛒 Case Study #6 - Clique Bait
+# 👚 Case Study #7 - Balanced Tree Clothing Co.
 <p align="center">
-<img src="https://8weeksqlchallenge.com/images/case-study-designs/6.png" width=40% height=40%>
+<img src="https://8weeksqlchallenge.com/images/case-study-designs/7.png" width=40% height=40%>
 
 ## Problem Statement
 
-Clique Bait is not like your regular online seafood store - the founder and CEO Danny, was also a part of a digital data analytics team and wanted to expand his knowledge into the seafood industry. In this case study it was required to support Danny’s vision and analyse his dataset and come up with creative solutions to calculate funnel fallout rates for the Clique Bait online store.
-
-There are five key datasets, which are represented by the relationshop diagram below.
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/81607668/134619326-f560a7b0-23b2-42ba-964b-95b3c8d55c76.png" width=60% height=60%>
+Danny, the CEO of this trendy fashion company has asked help to assist the team’s merchandising teams analyse their sales performance and generate a basic financial report to share with the wider business.
 
 ***
 
@@ -350,5 +345,3 @@ ORDER BY 2 DESC;
 |Cream Relaxed Jeans - Womens|49.72%|
 |White Striped Socks - Mens|49.72%|
 |Teal Button Up Shirt - Mens|49.68%|
-
-***

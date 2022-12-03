@@ -85,6 +85,6 @@ View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tr
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/7.png" width=40% height=40%>
 
-Danny, the CEO of this trendy fashion company has asked you to assist the team’s merchandising teams analyse their sales performance and generate a basic financial report to share with the wider business.
+Danny, the CEO of this trendy fashion company has asked help to assist the team’s merchandising teams analyse their sales performance and generate a basic financial report to share with the wider business.
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%237%20-%20Balanced%20Tree%20Clothing%20Co)
