@@ -177,3 +177,5 @@ GROUP BY customer_id, txn_month;
 |5|3|$ -1923|
 |5|4|$ -2413|
 ...
+
+***

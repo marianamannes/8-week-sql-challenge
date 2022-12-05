@@ -341,3 +341,5 @@ FROM products;
 |Avg conversion rate|
 |-----|
 |75.93%|
+
+***

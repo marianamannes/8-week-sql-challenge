@@ -294,3 +294,5 @@ WHERE planid = 2 AND nextplan = 1;
 |Number of customers|
 |-----|
 |0|
+
+***
