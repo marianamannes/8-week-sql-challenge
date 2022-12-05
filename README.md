@@ -88,3 +88,11 @@ View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tr
 Danny, the CEO of this trendy fashion company, has asked help to assist the team’s merchandising teams analyse their sales performance and generate a basic financial report to share with the wider business.
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%237%20-%20Balanced%20Tree%20Clothing%20Co)
+
+## 🍋 Case Study #8 - Fresh Segments
+<p align="center">
+<img src="https://8weeksqlchallenge.com/images/case-shttps://8weeksqlchallenge.com/images/case-study-designs/8.png" width=40% height=40%>
+
+Danny created Fresh Segments, a digital marketing agency that helps other businesses analyse trends in online ad click behaviour for their unique customer base. Danny has asked assistance to analyse aggregated metrics for an example client and provide some high level insights about the customer list and their interests.
+
+View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%238%20-%20Fresh%20Segments)
