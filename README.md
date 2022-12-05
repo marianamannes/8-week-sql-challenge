@@ -91,7 +91,7 @@ View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tr
 
 ## 🍋 Case Study #8 - Fresh Segments
 <p align="center">
-<img src="https://8weeksqlchallenge.com/images/case-shttps://8weeksqlchallenge.com/images/case-study-designs/8.png" width=40% height=40%>
+<img src="https://8weeksqlchallenge.com/images/case-study-designs/8.png" width=40% height=40%>
 
 Danny created Fresh Segments, a digital marketing agency that helps other businesses analyse trends in online ad click behaviour for their unique customer base. Danny has asked assistance to analyse aggregated metrics for an example client and provide some high level insights about the customer list and their interests.
 

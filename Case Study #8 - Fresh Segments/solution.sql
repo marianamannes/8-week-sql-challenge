@@ -106,5 +106,22 @@ cte_table2 AS(
 	GROUP BY total_months)
 SELECT SUM(qty) as "Quantity"
 FROM cte_table2
-WHERE total_months < 90;
+WHERE cumulative > 90;
+
+# Segment Analysis
+# Using our filtered dataset by removing the interests with less than 6 months worth of data, which are the top 10 and bottom 10 interests which have the largest composition values in any month_year? Only use the maximum composition value for each interest but you must keep the corresponding month_year
+WITH cte_table AS(
+SELECT DISTINCT(interest_id),
+	COUNT(DISTINCT(month_year)) AS total_months
+FROM interest_metrics
+WHERE interest_id IS NOT NULL
+GROUP BY interest_id)
+	SELECT
+	  total_months,
+	  COUNT(DISTINCT(interest_id)) AS qty,
+		ROUND(SUM(COUNT(DISTINCT(interest_id))) OVER(ORDER BY total_months DESC) /
+			(SUM(COUNT(DISTINCT(interest_id))) OVER ())*100,2) AS cumulative
+	FROM cte_table
+	GROUP BY total_months
+    HAVING cumulative < 90;
 

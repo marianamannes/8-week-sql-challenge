@@ -2,7 +2,7 @@
 
 # 🍋 Case Study #8 - Fresh Segments
 <p align="center">
-<img src="https://8weeksqlchallenge.com/images/case-shttps://8weeksqlchallenge.com/images/case-study-designs/8.png" width=40% height=40%>
+<img src="https://8weeksqlchallenge.com/images/case-study-designs/8.png" width=40% height=40%>
 
 ## Problem Statement
 
