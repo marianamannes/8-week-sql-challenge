@@ -1,6 +1,6 @@
 # [8 Week SQL Challenge](https://github.com/marianamannes/8-week-sql-challenge) 
 
-# 🏦 Case Study #4 - Data Bank
+# Case Study #4 - Data Bank
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/4.png" width=40% height=40%>
 

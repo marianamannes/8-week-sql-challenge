@@ -1,6 +1,6 @@
 # [8 Week SQL Challenge](https://github.com/marianamannes/8-week-sql-challenge) 
 
-# 🍜 Case Study #1 - Danny's Diner
+# Case Study #1 - Danny's Diner
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/1.png" width=40% height=40%>
 

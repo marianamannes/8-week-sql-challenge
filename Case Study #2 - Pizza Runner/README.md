@@ -1,6 +1,6 @@
 # [8 Week SQL Challenge](https://github.com/marianamannes/8-week-sql-challenge) 
 
-# 🍕 Case Study #2 - Pizza Runner
+# Case Study #2 - Pizza Runner
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/2.png" width=40% height=40%>
 

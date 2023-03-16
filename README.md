@@ -2,7 +2,7 @@
 
 This repository contains my solutions for the [8 Week SQL Challenge](https://8weeksqlchallenge.com/), in which many different databases were made available and the goal was to explore and to solve business problems with SQL language. In this case, I chose to solve the challenges with MYSQL.
 
-## 🍜 Case Study #1 - Danny's Diner
+## Case Study #1 - Danny's Diner
 
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/1.png" width=40% height=40%>
@@ -16,7 +16,7 @@ There are three key datasets, which are represented by the relationshop diagram 
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%231%20-%20Danny's%20Diner)
 
-## 🍕 Case Study #2 - Pizza Runner
+## Case Study #2 - Pizza Runner
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/2.png" width=40% height=40%>
 
@@ -29,7 +29,7 @@ There are six key datasets, which are represented by the relationshop diagram be
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%232%20-%20Pizza%20Runner)
 
-## 🥑 Case Study #3 - Foodie-Fi
+## Case Study #3 - Foodie-Fi
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/3.png" width=40% height=40%>
 
@@ -42,7 +42,7 @@ There are two key datasets, which are represented by the relationshop diagram be
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%233%20-%20Foodie-Fi)
 
-## 🏦 Case Study #4 - Data Bank
+## Case Study #4 - Data Bank
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/4.png" width=40% height=40%>
 
@@ -55,7 +55,7 @@ There are three key datasets, which are represented by the relationshop diagram 
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%234%20-%20Data%20Bank)
 
-## 🛒 Case Study #5 - Data Mart
+## Case Study #5 - Data Mart
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/5.png" width=40% height=40%>
 
@@ -68,7 +68,7 @@ There is only one key dataset, which is represented by the table below.
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%235%20-%20Data%20Mart)
 
-## 📢 Case Study #6 - Clique Bait
+## Case Study #6 - Clique Bait
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/6.png" width=40% height=40%>
 
@@ -81,7 +81,7 @@ There are five key datasets, which are represented by the relationshop diagram b
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%236%20-%20Clique%20Bait)
 
-## 👚 Case Study #7 - Balanced Tree Clothing Co.
+## Case Study #7 - Balanced Tree Clothing Co.
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/7.png" width=40% height=40%>
 
@@ -89,7 +89,7 @@ Danny, the CEO of this trendy fashion company, has asked help to assist the team
 
 View my solution [here](https://github.com/marianamannes/8-week-sql-challenge/tree/master/Case%20Study%20%237%20-%20Balanced%20Tree%20Clothing%20Co)
 
-## 🍋 Case Study #8 - Fresh Segments
+## Case Study #8 - Fresh Segments
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/8.png" width=40% height=40%>
 

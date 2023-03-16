@@ -1,6 +1,6 @@
 # [8 Week SQL Challenge](https://github.com/marianamannes/8-week-sql-challenge) 
 
-# 🥑 Case Study #3 - Foodie-Fi
+# Case Study #3 - Foodie-Fi
 <p align="center">
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/3.png" width=40% height=40%>
 
