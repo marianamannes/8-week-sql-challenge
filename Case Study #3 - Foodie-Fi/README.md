@@ -1,8 +1,6 @@
 # [8 Week SQL Challenge](https://github.com/marianamannes/8-week-sql-challenge) 
 
 # Case Study #3 - Foodie-Fi
-<p align="center">
-<img src="https://8weeksqlchallenge.com/images/case-study-designs/3.png" width=40% height=40%>
 
 ## Problem Statement
 Danny has created a new straming device that only has food related content. It's a subscription based business, and the goal of this case study is to answer some questions about the customers' data.

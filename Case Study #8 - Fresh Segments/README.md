@@ -1,8 +1,6 @@
 # [8 Week SQL Challenge](https://github.com/marianamannes/8-week-sql-challenge) 
 
 # Case Study #8 - Fresh Segments
-<p align="center">
-<img src="https://8weeksqlchallenge.com/images/case-study-designs/8.png" width=40% height=40%>
 
 ## Problem Statement
 

@@ -1,8 +1,6 @@
 # [8 Week SQL Challenge](https://github.com/marianamannes/8-week-sql-challenge) 
 
 # Case Study #2 - Pizza Runner
-<p align="center">
-<img src="https://8weeksqlchallenge.com/images/case-study-designs/2.png" width=40% height=40%>
 
 ## Problem Statement
 Danny has launched a pizza delivery app where customers can place orders and runners can deliver them. He needs help analyzing his business data.

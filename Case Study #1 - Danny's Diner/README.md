@@ -1,8 +1,6 @@
 # [8 Week SQL Challenge](https://github.com/marianamannes/8-week-sql-challenge) 
 
 # Case Study #1 - Danny's Diner
-<p align="center">
-<img src="https://8weeksqlchallenge.com/images/case-study-designs/1.png" width=40% height=40%>
 
 ## Problem Statement
 In the beggining of 2021, Danny opened up a restaurant and now wants to answer some questions about the preferences of the costumers, including the pattern of visitis, their purchases and favorite menu items. 

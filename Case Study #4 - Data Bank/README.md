@@ -1,8 +1,6 @@
 # [8 Week SQL Challenge](https://github.com/marianamannes/8-week-sql-challenge) 
 
 # Case Study #4 - Data Bank
-<p align="center">
-<img src="https://8weeksqlchallenge.com/images/case-study-designs/4.png" width=40% height=40%>
 
 ## Problem Statement
 Danny has created a digital bank that also has the world’s most secure distributed data storage platform. This case study is all about calculating metrics, growth and helping the business analyse their data in a smart way to better forecast and plan for their future developments.
