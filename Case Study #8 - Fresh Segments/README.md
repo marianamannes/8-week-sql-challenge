@@ -15,11 +15,12 @@ Danny created Fresh Segments, a digital marketing agency that helps other busine
 ### 1. Update the fresh_segments.interest_metrics table by modifying the month_year column to be a date data type with the start of the month
 
 ```sql
-ALTER TABLE interest_metrics MODIFY month_year VARCHAR(10);
+ALTER TABLE interest_metrics MODIFY month_year VARCHAR (10);
 
 UPDATE interest_metrics
-SET month_year = CASE WHEN(_month>9)=TRUE THEN STR_TO_DATE((CONCAT(_year, "-", _month, "-01")), "%Y-%m-%d") 
-			ELSE STR_TO_DATE((CONCAT(_year, "-0", _month, "-01")), "%Y-%m-%d") END;
+SET month_year = CASE
+                     WHEN (_month > 9) = TRUE THEN STR_TO_DATE((CONCAT(_year, "-", _month, "-01")), "%Y-%m-%d")
+                     ELSE STR_TO_DATE((CONCAT(_year, "-0", _month, "-01")), "%Y-%m-%d") END;
 ```
 
 |_month|_year|month_year|interest_id|composition|index_value|ranking|percentile_ranking|
@@ -39,7 +40,7 @@ SET month_year = CASE WHEN(_month>9)=TRUE THEN STR_TO_DATE((CONCAT(_year, "-", _
 
 ```sql
 SELECT month_year AS "Date",
-	COUNT(*) AS "Records"
+       COUNT(*)   AS "Records"
 FROM interest_metrics
 GROUP BY month_year
 ORDER BY month_year;
@@ -79,8 +80,7 @@ WHERE interest_id IS NULL;
 ```sql
 SELECT COUNT(DISTINCT(me.interest_id)) AS "Interests"
 FROM interest_metrics me
-LEFT JOIN interest_map ma
-ON me.interest_id = ma.id
+LEFT JOIN interest_map ma ON me.interest_id = ma.id
 WHERE ma.id IS NULL;
 ```
 
@@ -91,8 +91,7 @@ WHERE ma.id IS NULL;
 ```sql
 SELECT COUNT(DISTINCT(ma.id)) AS "Interests" 
 FROM interest_metrics me
-RIGHT JOIN interest_map ma
-ON me.interest_id = ma.id
+RIGHT JOIN interest_map ma ON me.interest_id = ma.id
 WHERE me.interest_id IS NULL;
 ```
 
@@ -119,21 +118,20 @@ FROM interest_map;
 
 ```sql
 SELECT ma.id,
-	ma.interest_name,
-    ma.interest_summary,
-    ma.created_at,
-    ma.last_modified,
-    me._month,
-    me._year,
-    me.month_year,
-	me.interest_id,
-    me.composition,
-    me.index_value,
-    me.ranking,
-    me.percentile_ranking
+       ma.interest_name,
+       ma.interest_summary,
+       ma.created_at,
+       ma.last_modified,
+       me._month,
+       me._year,
+       me.month_year,
+       me.interest_id,
+       me.composition,
+       me.index_value,
+       me.ranking,
+       me.percentile_ranking
 FROM interest_map ma
-LEFT JOIN interest_metrics me
-ON ma.id = me.interest_id
+LEFT JOIN interest_metrics me ON ma.id = me.interest_id
 WHERE ma.id = "21246";
 ```
 
@@ -158,8 +156,7 @@ WHERE ma.id = "21246";
 ```sql
 SELECT COUNT(ma.id) AS "Records"
 FROM interest_map ma
-LEFT JOIN interest_metrics me
-ON ma.id = me.interest_id
+LEFT JOIN interest_metrics me ON ma.id = me.interest_id
 WHERE month_year < created_at;
 ```
 
@@ -174,17 +171,15 @@ WHERE month_year < created_at;
 ### 1.  Which interests have been present in all month_year dates in our dataset?
 
 ```sql
-WITH cte_table AS(
-	SELECT DISTINCT(ma.interest_name) AS interest,
-		COUNT(DISTINCT(me.month_year)) AS presence
-	FROM interest_map ma
-	LEFT JOIN interest_metrics me
-	ON me.interest_id = ma.id
-	GROUP BY ma.interest_name)
+WITH cte_table AS (SELECT DISTINCT(ma.interest_name)              AS interest,
+                                  COUNT(DISTINCT (me.month_year)) AS presence
+                   FROM interest_map ma
+                   LEFT JOIN interest_metrics me ON me.interest_id = ma.id
+                   GROUP BY ma.interest_name)
 SELECT interest,
-	presence
+       presence
 FROM cte_table
-WHERE presence = (SELECT COUNT(DISTINCT(month_year)) FROM interest_metrics);
+WHERE presence = (SELECT COUNT(DISTINCT (month_year)) FROM interest_metrics);
 ```
 
 |interest|presence|
@@ -201,17 +196,16 @@ WHERE presence = (SELECT COUNT(DISTINCT(month_year)) FROM interest_metrics);
 ### 2. Using this same total_months measure - calculate the cumulative percentage of all records starting at 14 months - which total_months value passes the 90% cumulative percentage value?
 
 ```sql
-WITH cte_table AS(
-SELECT DISTINCT(interest_id),
-	COUNT(DISTINCT(month_year)) AS total_months
-FROM interest_metrics
-WHERE interest_id IS NOT NULL
-GROUP BY interest_id)
-SELECT
-  total_months AS "Total Months",
-  COUNT(DISTINCT(interest_id)) AS "Qty of interests",
-	ROUND(SUM(COUNT(DISTINCT(interest_id))) OVER(ORDER BY total_months DESC) /
-		(SUM(COUNT(DISTINCT(interest_id))) OVER ())*100,2) AS "Cumulative Percentage"
+WITH cte_table AS (SELECT DISTINCT(interest_id),
+                                  COUNT(DISTINCT (month_year)) AS total_months
+                   FROM interest_metrics
+                   WHERE interest_id IS NOT NULL
+                   GROUP BY interest_id)
+
+SELECT total_months                                                 AS "Total Months",
+       COUNT(DISTINCT (interest_id))                                AS "Qty of interests",
+       ROUND(SUM(COUNT(DISTINCT (interest_id))) OVER (ORDER BY total_months DESC) /
+             (SUM(COUNT(DISTINCT (interest_id))) OVER ()) * 100, 2) AS "Cumulative Percentage"
 FROM cte_table
 GROUP BY total_months;
 ```
@@ -238,20 +232,19 @@ GROUP BY total_months;
 ### 3. If we were to remove all interest_id values which are lower than the total_months value we found in the previous question - how many total data points would we be removing?
 
 ```sql
-WITH cte_table AS(
-SELECT DISTINCT(interest_id),
-	COUNT(DISTINCT(month_year)) AS total_months
-FROM interest_metrics
-WHERE interest_id IS NOT NULL
-GROUP BY interest_id),
-cte_table2 AS(
-	SELECT
-	  total_months,
-	  COUNT(DISTINCT(interest_id)) AS qty,
-		ROUND(SUM(COUNT(DISTINCT(interest_id))) OVER(ORDER BY total_months DESC) /
-			(SUM(COUNT(DISTINCT(interest_id))) OVER ())*100,2) AS cumulative
-	FROM cte_table
-	GROUP BY total_months)
+WITH cte_table AS (SELECT DISTINCT(interest_id),
+                                  COUNT(DISTINCT (month_year)) AS total_months
+                   FROM interest_metrics
+                   WHERE interest_id IS NOT NULL
+                   GROUP BY interest_id),
+    
+     cte_table2 AS (SELECT total_months,
+                           COUNT(DISTINCT (interest_id))                                AS qty,
+                           ROUND(SUM(COUNT(DISTINCT (interest_id))) OVER (ORDER BY total_months DESC) /
+                                 (SUM(COUNT(DISTINCT (interest_id))) OVER ()) * 100, 2) AS cumulative
+                    FROM cte_table
+                    GROUP BY total_months)
+
 SELECT SUM(qty) as "Quantity"
 FROM cte_table2
 WHERE cumulative > 90;
