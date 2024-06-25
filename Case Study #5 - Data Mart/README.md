@@ -18,25 +18,28 @@ There is only one key dataset, which is represented by the table below.
 ### Data Cleansing Steps
 
 ```sql
-CREATE TEMPORARY TABLE clean_weekly_sales(
-	SELECT STR_TO_DATE(week_date, "%d/%m/%Y") AS "week_date",
-	WEEK(STR_TO_DATE(week_date, "%d/%m/%Y")) AS "week_number",
-	MONTH(STR_TO_DATE(week_date, "%d/%m/%Y")) AS "month_number",
-	YEAR(STR_TO_DATE(week_date, "%d/%m/%Y")) AS "calendar_year",
-    region,
-    platform,
-	CASE WHEN(segment LIKE "%1%")=TRUE THEN "Young Adults" 
-		WHEN(segment LIKE "%2%")=TRUE THEN "Middle Aged" 
-		WHEN(segment LIKE "%3%" OR segment LIKE "%4%")=TRUE THEN "Retirees" 
-		ELSE "unknown" END AS "age_band",
-	CASE WHEN(segment LIKE "%C%")=TRUE THEN "Couples"
-		WHEN(segment LIKE "%F%")=TRUE THEN "Families" 
-		ELSE "unknown" END AS "demographic",
-	customer_type,
-    transactions,
-	ROUND(sales/transactions,2) AS "avg_transaction",
-    sales
-	FROM weekly_sales);
+TEMPORARY TABLE clean_weekly_sales AS
+    (SELECT STR_TO_DATE(week_date, "%d/%m/%Y")        AS "week_date",
+            WEEK(STR_TO_DATE(week_date, "%d/%m/%Y")
+                )                                     AS "week_number",
+            MONTH(STR_TO_DATE(week_date, "%d/%m/%Y")) AS "month_number",
+            YEAR(STR_TO_DATE(week_date, "%d/%m/%Y"))  AS "calendar_year",
+            region,
+            platform,
+            CASE
+                WHEN (segment LIKE "%1%") = TRUE THEN "Young Adults"
+                WHEN (segment LIKE "%2%") = TRUE THEN "Middle Aged"
+                WHEN (segment LIKE "%3%" OR segment LIKE "%4%") = TRUE THEN "Retirees"
+                ELSE "unknown" END                    AS "age_band",
+            CASE
+                WHEN (segment LIKE "%C%") = TRUE THEN "Couples"
+                WHEN (segment LIKE "%F%") = TRUE THEN "Families"
+                ELSE "unknown" END                    AS "demographic",
+            customer_type,
+            transactions,
+            ROUND(sales / transactions, 2)            AS "avg_transaction",
+            sales
+     FROM weekly_sales);
 ```
 
 ***
@@ -59,16 +62,14 @@ FROM clean_weekly_sales;
 ### 2. What range of week numbers are missing from the dataset?
 
 ```sql
-WITH RECURSIVE cte_table(Number) AS(
-	SELECT 1
-	UNION ALL
-	SELECT Number + 1
-	FROM cte_table
-	WHERE Number < 52)
+WITH RECURSIVE cte_table(Number) AS (SELECT 1
+                                     UNION ALL
+                                     SELECT Number + 1
+                                     FROM cte_table
+                                     WHERE Number < 52)
 SELECT DISTINCT(cte.Number)
 FROM cte_table cte
-LEFT OUTER JOIN clean_weekly_sales c
-ON cte.Number = c.week_number
+LEFT OUTER JOIN clean_weekly_sales c ON cte.Number = c.week_number
 WHERE c.week_number IS NULL;
 ```
 
@@ -109,8 +110,8 @@ WHERE c.week_number IS NULL;
 
 
 ```sql
-SELECT calendar_year AS "Year",
-	SUM(transactions) AS "Transactions"
+SELECT calendar_year     AS "Year",
+       SUM(transactions) AS "Transactions"
 FROM clean_weekly_sales
 GROUP BY calendar_year;
 ```
@@ -126,9 +127,9 @@ GROUP BY calendar_year;
 ### 4. What is the total sales for each region for each month?
 
 ```sql
-SELECT region AS "Region",
-	month_number AS "Month",
-	SUM(sales) AS "Sales"
+SELECT region       AS "Region",
+       month_number AS "Month",
+       SUM(sales)   AS "Sales"
 FROM clean_weekly_sales
 GROUP BY region, month_number
 ORDER BY region, month_number;
@@ -164,8 +165,8 @@ ORDER BY region, month_number;
 ### 5. What is the total count of transactions for each platform
 
 ```sql
-SELECT platform AS "Platform",
-	SUM(transactions) AS "Transactions"
+SELECT platform          AS "Platform",
+       SUM(transactions) AS "Transactions"
 FROM clean_weekly_sales
 GROUP BY platform;
 ```
@@ -180,16 +181,16 @@ GROUP BY platform;
 ### 6. What is the percentage of sales for Retail vs Shopify for each month?
 
 ```sql
-WITH cte_table AS(
-	SELECT month_number,
-		SUM(CASE WHEN(platform = "Retail")=TRUE THEN sales END) AS retail,
-		SUM(CASE WHEN(platform = "Shopify")=TRUE THEN sales END) AS shopify,
-		SUM(sales) AS total_sales
-	FROM clean_weekly_sales
-	GROUP BY month_number)
-SELECT month_number AS "Month",
-	CONCAT(ROUND(retail/total_sales * 100, 2), "%") AS "Retail percentage",
-	CONCAT(ROUND(shopify/total_sales * 100, 2), "%") AS "Shopify percentage"
+WITH cte_table AS (SELECT month_number,
+                          SUM(CASE WHEN (platform = "Retail") = TRUE THEN sales END)  AS retail,
+                          SUM(CASE WHEN (platform = "Shopify") = TRUE THEN sales END) AS shopify,
+                          SUM(sales)                                                  AS total_sales
+                   FROM clean_weekly_sales
+                   GROUP BY month_number)
+
+SELECT month_number                                       AS "Month",
+       CONCAT(ROUND(retail / total_sales * 100, 2), "%")  AS "Retail percentage",
+       CONCAT(ROUND(shopify / total_sales * 100, 2), "%") AS "Shopify percentage"
 FROM cte_table
 GROUP BY month_number
 ORDER BY month_number;
@@ -210,18 +211,18 @@ ORDER BY month_number;
 ### 7. What is the percentage of sales by demographic for each year in the dataset?
 
 ```sql
-WITH cte_table AS(
-	SELECT calendar_year,
-		SUM(CASE WHEN(demographic = "Couples")=TRUE THEN sales END) AS couples,
-		SUM(CASE WHEN(demographic = "Families")=TRUE THEN sales END) AS families,
-		SUM(CASE WHEN(demographic = "unknown")=TRUE THEN sales END) AS dg_unknown,
-		SUM(sales) AS total_sales
-	FROM clean_weekly_sales
-	GROUP BY calendar_year)
-SELECT calendar_year AS "Year",
-	CONCAT(ROUND(couples/total_sales * 100, 2), "%") AS "Couples percentage",
-	CONCAT(ROUND(families/total_sales * 100, 2), "%") AS "Families percentage",
-	CONCAT(ROUND(dg_unknown/total_sales * 100, 2), "%") AS "Unknown percentage"
+WITH cte_table AS (SELECT calendar_year,
+                          SUM(CASE WHEN (demographic = "Couples") = TRUE THEN sales END)  AS couples,
+                          SUM(CASE WHEN (demographic = "Families") = TRUE THEN sales END) AS families,
+                          SUM(CASE WHEN (demographic = "unknown") = TRUE THEN sales END)  AS dg_unknown,
+                          SUM(sales)                                                      AS total_sales
+                   FROM clean_weekly_sales
+                   GROUP BY calendar_year)
+
+SELECT calendar_year                                         AS "Year",
+       CONCAT(ROUND(couples / total_sales * 100, 2), "%")    AS "Couples percentage",
+       CONCAT(ROUND(families / total_sales * 100, 2), "%")   AS "Families percentage",
+       CONCAT(ROUND(dg_unknown / total_sales * 100, 2), "%") AS "Unknown percentage"
 FROM cte_table
 GROUP BY calendar_year
 ORDER BY calendar_year;
@@ -238,9 +239,9 @@ ORDER BY calendar_year;
 ### 8. Which age_band and demographic values contribute the most to Retail sales?
 
 ```sql
-SELECT age_band AS "Age Band",
-	demographic AS "Demographic",
-	SUM(sales) as "Sales"
+SELECT age_band    AS "Age Band",
+       demographic AS "Demographic",
+       SUM(sales)  as "Sales"
 FROM clean_weekly_sales
 WHERE platform = "Retail"
 GROUP BY age_band, demographic
@@ -257,9 +258,9 @@ LIMIT 1;
 ### 9. Can we use the avg_transaction column to find the average transaction size for each year for Retail vs Shopify? If not - how would you calculate it instead?
 
 ```sql
-SELECT calendar_year AS "Year",
-	platform AS "Platform",
-	ROUND(SUM(sales)/SUM(transactions),2) AS "Avg Transactions"
+SELECT calendar_year                            AS "Year",
+       platform                                 AS "Platform",
+       ROUND(SUM(sales) / SUM(transactions), 2) AS "Avg Transactions"
 FROM clean_weekly_sales
 GROUP BY calendar_year, platform
 ORDER BY calendar_year, platform;
@@ -281,17 +282,17 @@ ORDER BY calendar_year, platform;
 ### 1. What is the total sales for the 4 weeks before and after 2020-06-15? What is the growth or reduction rate in actual values and percentage of sales?
 
 ```sql
-WITH cte_table AS(
-	SELECT week_number,
-		CASE WHEN(week_number >= 20 AND week_number < 24)=TRUE THEN SUM(sales) END AS sales_before,
-		CASE WHEN(week_number >= 24 AND week_number < 28)=TRUE THEN SUM(sales) END AS sales_after
-	FROM clean_weekly_sales
-	WHERE calendar_year = "2020"
-	GROUP BY week_number)
-SELECT SUM(sales_before) AS "Before",
-	SUM(sales_after) AS "After",
-	SUM(sales_after) - SUM(sales_before) AS "Variance",
-	CONCAT(ROUND((SUM(sales_after)-SUM(sales_before))/SUM(sales_before)*100,2),"%") AS "Percentage"
+WITH cte_table AS (SELECT week_number,
+                          CASE WHEN (week_number >= 20 AND week_number < 24) = TRUE THEN SUM(sales) END AS sales_before,
+                          CASE WHEN (week_number >= 24 AND week_number < 28) = TRUE THEN SUM(sales) END AS sales_after
+                   FROM clean_weekly_sales
+                   WHERE calendar_year = "2020"
+                   GROUP BY week_number)
+
+SELECT SUM(sales_before)                                                                       AS "Before",
+       SUM(sales_after)                                                                        AS "After",
+       SUM(sales_after) - SUM(sales_before)                                                    AS "Variance",
+       CONCAT(ROUND((SUM(sales_after) - SUM(sales_before)) / SUM(sales_before) * 100, 2), "%") AS "Percentage"
 FROM cte_table;
 ```
 
@@ -304,17 +305,17 @@ FROM cte_table;
 ### 2. What about the entire 12 weeks before and after?
 
 ```sql
-WITH cte_table AS(
-	SELECT week_number,
-		CASE WHEN(week_number >= 12 AND week_number < 24)=TRUE THEN SUM(sales) END AS sales_before,
-		CASE WHEN(week_number >= 24 AND week_number < 36)=TRUE THEN SUM(sales) END AS sales_after
-	FROM clean_weekly_sales
-	WHERE calendar_year = "2020"
-	GROUP BY week_number)
-SELECT SUM(sales_before) AS "Before",
-	SUM(sales_after) AS "After",
-	SUM(sales_after) - SUM(sales_before) AS "Variance",
-	CONCAT(ROUND((SUM(sales_after)-SUM(sales_before))/SUM(sales_before)*100,2),"%") AS "Percentage"
+WITH cte_table AS (SELECT week_number,
+                          CASE WHEN (week_number >= 12 AND week_number < 24) = TRUE THEN SUM(sales) END AS sales_before,
+                          CASE WHEN (week_number >= 24 AND week_number < 36) = TRUE THEN SUM(sales) END AS sales_after
+                   FROM clean_weekly_sales
+                   WHERE calendar_year = "2020"
+                   GROUP BY week_number)
+
+SELECT SUM(sales_before)                                                                       AS "Before",
+       SUM(sales_after)                                                                        AS "After",
+       SUM(sales_after) - SUM(sales_before)                                                    AS "Variance",
+       CONCAT(ROUND((SUM(sales_after) - SUM(sales_before)) / SUM(sales_before) * 100, 2), "%") AS "Percentage"
 FROM cte_table;
 ```
 
@@ -327,18 +328,18 @@ FROM cte_table;
 ### 3. How do the sale metrics for these 2 periods before and after compare with the previous years in 2018 and 2019?
 
 ```sql
-WITH cte_table AS(
-	SELECT calendar_year,
-		week_number,
-		CASE WHEN(week_number >= 20 AND week_number < 24)=TRUE THEN SUM(sales) END AS sales_before,
-		CASE WHEN(week_number >= 24 AND week_number < 28)=TRUE THEN SUM(sales) END AS sales_after
-	FROM clean_weekly_sales
-	GROUP BY calendar_year, week_number)
-SELECT calendar_year AS "Year",
-	SUM(sales_before) AS "Before",
-	SUM(sales_after) AS "After",
-	SUM(sales_after) - SUM(sales_before) AS "Variance",
-	CONCAT(ROUND((SUM(sales_after)-SUM(sales_before))/SUM(sales_before)*100,2),"%") AS "Percentage"
+WITH cte_table AS (SELECT calendar_year,
+                          week_number,
+                          CASE WHEN (week_number >= 20 AND week_number < 24) = TRUE THEN SUM(sales) END AS sales_before,
+                          CASE WHEN (week_number >= 24 AND week_number < 28) = TRUE THEN SUM(sales) END AS sales_after
+                   FROM clean_weekly_sales
+                   GROUP BY calendar_year, week_number)
+
+SELECT calendar_year                                                                           AS "Year",
+       SUM(sales_before)                                                                       AS "Before",
+       SUM(sales_after)                                                                        AS "After",
+       SUM(sales_after) - SUM(sales_before)                                                    AS "Variance",
+       CONCAT(ROUND((SUM(sales_after) - SUM(sales_before)) / SUM(sales_before) * 100, 2), "%") AS "Percentage"
 FROM cte_table
 GROUP BY calendar_year;
 ```
@@ -350,18 +351,18 @@ GROUP BY calendar_year;
 |2018|2125140809|2129242914|4102105|0.19%|
 
 ```sql
-WITH cte_table AS(
-	SELECT calendar_year,
-		week_number,
-		CASE WHEN(week_number >= 12 AND week_number < 24)=TRUE THEN SUM(sales) END AS sales_before,
-		CASE WHEN(week_number >= 24 AND week_number < 36)=TRUE THEN SUM(sales) END AS sales_after
-	FROM clean_weekly_sales
-	GROUP BY calendar_year, week_number)
+WITH cte_table AS (SELECT calendar_year,
+                          week_number,
+                          CASE WHEN (week_number >= 12 AND week_number < 24) = TRUE THEN SUM(sales) END AS sales_before,
+                          CASE WHEN (week_number >= 24 AND week_number < 36) = TRUE THEN SUM(sales) END AS sales_after
+                   FROM clean_weekly_sales
+                   GROUP BY calendar_year, week_number)
+
 SELECT calendar_year,
-	SUM(sales_before) AS "Before",
-	SUM(sales_after) AS "After",
-	SUM(sales_after) - SUM(sales_before) AS "Variance",
-	CONCAT(ROUND((SUM(sales_after)-SUM(sales_before))/SUM(sales_before)*100,2),"%") AS "Percentage"
+       SUM(sales_before)                                                                       AS "Before",
+       SUM(sales_after)                                                                        AS "After",
+       SUM(sales_after) - SUM(sales_before)                                                    AS "Variance",
+       CONCAT(ROUND((SUM(sales_after) - SUM(sales_before)) / SUM(sales_before) * 100, 2), "%") AS "Percentage"
 FROM cte_table
 GROUP BY calendar_year;
 ```
