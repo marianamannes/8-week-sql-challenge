@@ -31,10 +31,9 @@ FROM subscriptions;
 
 ```sql
 SELECT MONTHNAME(s.start_date) AS "Month",
-	COUNT(p.plan_name) AS "Number of plans"
+       COUNT(p.plan_name)      AS "Number of plans"
 FROM subscriptions s
-INNER JOIN plans p
-ON s.plan_id = p.plan_id
+INNER JOIN plans p ON s.plan_id = p.plan_id
 WHERE p.plan_name = "trial"
 GROUP BY MONTHNAME(s.start_date)
 ORDER BY MONTH(s.start_date);
@@ -60,11 +59,10 @@ ORDER BY MONTH(s.start_date);
 ### 3. What plan start_date values occur after the year 2020 for our dataset? Show the breakdown by count of events for each plan_name
 
 ```sql
-SELECT p.plan_name AS "planname",
-	COUNT(p.plan_name) AS "plans"
+SELECT p.plan_name        AS "planname",
+       COUNT(p.plan_name) AS "plans"
 FROM subscriptions s
-INNER JOIN plans p
-ON s.plan_id = p.plan_id
+INNER JOIN plans p ON s.plan_id = p.plan_id
 WHERE s.start_date >= "2021-01-01"
 GROUP BY p.plan_name;
 ```
@@ -82,8 +80,9 @@ GROUP BY p.plan_name;
 
 ```sql
 SELECT SUM(CASE WHEN plan_id = "4" THEN 1 ELSE 0 END) AS "Number of churns",
-	CONCAT(ROUND(((SUM(CASE WHEN plan_id = "4" THEN 1 ELSE 0 END))/(COUNT(DISTINCT customer_id)))*100,1), "%") AS "Percentage of churns"
-	FROM subscriptions;
+       CONCAT(ROUND(((SUM(CASE WHEN plan_id = "4" THEN 1 ELSE 0 END)) / (COUNT(DISTINCT customer_id))) * 100, 1),
+              "%")                                    AS "Percentage of churns"
+FROM subscriptions;
 ```
 
 |Number of churns|Percentage of churns|
@@ -95,16 +94,18 @@ SELECT SUM(CASE WHEN plan_id = "4" THEN 1 ELSE 0 END) AS "Number of churns",
 ### 5. How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
 
 ```sql
-WITH cte_table AS(
-SELECT customer_id AS "customerid",
-	plan_id AS "planid",
-	ROW_NUMBER() OVER(PARTITION BY customer_id ORDER BY plan_id) AS "plannumber",
-	start_date AS "startdate"
-FROM subscriptions)
-SELECT COUNT(customerid) AS "Churned Customers",
-	CONCAT(ROUND(COUNT(customerid)/(SELECT COUNT(DISTINCT customer_id) FROM subscriptions)*100,0), "%") AS "Churn percentage"
+WITH cte_table AS (SELECT customer_id                                                   AS "customerid",
+                          plan_id                                                       AS "planid",
+                          ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY plan_id) AS "plannumber",
+                          start_date                                                    AS "startdate"
+                   FROM subscriptions)
+
+SELECT COUNT(customerid)                                                                                        AS "Churned Customers",
+       CONCAT(ROUND(COUNT(customerid) / (SELECT COUNT(DISTINCT customer_id) FROM subscriptions) * 100, 0),
+              "%")                                                                                              AS "Churn percentage"
 FROM cte_table
-WHERE plannumber = "2" AND planid = "4";
+WHERE plannumber = "2"
+  AND planid = "4";
 ```
 
 |Churned Customers|Churn percentage|
@@ -116,17 +117,16 @@ WHERE plannumber = "2" AND planid = "4";
 ### 6. What is the number and percentage of customer plans after their initial free trial?
 
 ```sql
-WITH cte_table AS(
-SELECT customer_id AS "customerid",
-	plan_id AS "planid",
-	LEAD(plan_id, 1) OVER(PARTITION BY customer_id ORDER BY plan_id) AS "nextplan"
-FROM subscriptions)
-SELECT p.plan_name AS "Plan name",
-	COUNT(c.customerid) AS "Number of customers",
-	CONCAT(ROUND(COUNT(c.customerid)/(SELECT COUNT(DISTINCT customer_id) FROM subscriptions)*100,2), "%") AS "Percentage of customers"
+WITH cte_table AS (SELECT customer_id                                                       AS "customerid",
+                          plan_id                                                           AS "planid",
+                          LEAD(plan_id, 1) OVER (PARTITION BY customer_id ORDER BY plan_id) AS "nextplan"
+                   FROM subscriptions)
+SELECT p.plan_name                                                                                                AS "Plan name",
+       COUNT(c.customerid)                                                                                        AS "Number of customers",
+       CONCAT(ROUND(COUNT(c.customerid) / (SELECT COUNT(DISTINCT customer_id) FROM subscriptions) * 100, 2),
+              "%")                                                                                                AS "Percentage of customers"
 FROM cte_table c
-INNER JOIN plans p
-ON c.nextplan = p.plan_id
+INNER JOIN plans p ON c.nextplan = p.plan_id
 WHERE c.planid = 0
 GROUP BY p.plan_name;
 ```
@@ -143,19 +143,19 @@ GROUP BY p.plan_name;
 ### 7. What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
 
 ```sql
-WITH cte_table AS(
-SELECT customer_id AS "customerid",
-	plan_id AS "planid",
-	start_date AS "startdate",
-	LEAD(start_date, 1) OVER(PARTITION BY customer_id ORDER BY start_date) AS "enddate"
-FROM subscriptions)
-SELECT p.plan_name AS "Plan name",
-	COUNT(c.customerid) AS "Number of customers",
-	CONCAT(ROUND(COUNT(c.customerid)/(SELECT COUNT(DISTINCT customer_id) FROM subscriptions)*100,2), "%") AS "Percentage of customers"
+WITH cte_table AS (SELECT customer_id                                                             AS "customerid",
+                          plan_id                                                                 AS "planid",
+                          start_date                                                              AS "startdate",
+                          LEAD(start_date, 1) OVER (PARTITION BY customer_id ORDER BY start_date) AS "enddate"
+                   FROM subscriptions)
+SELECT p.plan_name                                                                                                AS "Plan name",
+       COUNT(c.customerid)                                                                                        AS "Number of customers",
+       CONCAT(ROUND(COUNT(c.customerid) / (SELECT COUNT(DISTINCT customer_id) FROM subscriptions) * 100, 2),
+              "%")                                                                                                AS "Percentage of customers"
 FROM cte_table c
-INNER JOIN plans p
-ON c.planid = p.plan_id
-WHERE enddate > "2020-12-31" OR (startdate <= "2020-12-31" AND enddate IS NULL)
+INNER JOIN plans p ON c.planid = p.plan_id
+WHERE enddate > "2020-12-31"
+   OR (startdate <= "2020-12-31" AND enddate IS NULL)
 GROUP BY p.plan_name;
 ```
 
@@ -174,7 +174,8 @@ GROUP BY p.plan_name;
 ```sql
 SELECT COUNT(DISTINCT customer_id) AS "Number of customers"
 FROM subscriptions
-WHERE (start_date >= "2020-01-01" AND start_date <= "2020-12-31") AND plan_id = "3";
+WHERE (start_date >= "2020-01-01" AND start_date <= "2020-12-31")
+  AND plan_id = "3";
 ```
 
 |Number of customers|
@@ -183,110 +184,83 @@ WHERE (start_date >= "2020-01-01" AND start_date <= "2020-12-31") AND plan_id = 
 
 ***
 
-### 9. How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
-
+### 9. How many days on average does it take for a customer to upgrade to an annual plan from the day they join Foodie-Fi?
 ```sql
-WITH cte_table1 AS(
-	WITH cte_table2 AS(
-		SELECT customer_id,
-		ROW_NUMBER() OVER(PARTITION BY customer_id ORDER BY plan_id) AS "plannumber",
-		start_date
-		FROM subscriptions)
-	SELECT customer_id,
-		plannumber,
-		start_date
-	FROM cte_table2
-	WHERE plannumber = "1"),
-cte_table3 AS(
-	SELECT customer_id,
-	plan_id,
-	start_date
-FROM subscriptions
-WHERE plan_id = 3)
-SELECT ROUND(AVG(DATEDIFF(c3.start_date, c1.start_date)),2) AS "Days in average"
-FROM cte_table3 c3
-INNER JOIN cte_table1 c1
-ON c3.customer_id = c1.customer_id;
+WITH annual_plan AS (SELECT customer_id, 
+                          start_date AS annual_date
+                   FROM subscriptions
+                   WHERE plan_id = 3),
+    
+     trial_date AS (SELECT customer_id, 
+                         start_date AS trial_date
+                  FROM subscriptions
+                  WHERE plan_id = 0)
+
+SELECT ROUND(AVG(DATEDIFF(annual_date, trial_date)), 0) AS "Days in average"
+FROM annual_plan
+INNER JOIN trial_date ON annual_plan.customer_id = trial_date.customer_id;
 ```
 
 |Days in average|
 |-----|
-|104.62|
+|105|
 
 ***
 
 ### 10. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)?
 
 ```sql
-WITH cte_table1 AS(
-	WITH cte_table2 AS(
-		SELECT customer_id,
-			ROW_NUMBER() OVER(PARTITION BY customer_id ORDER BY plan_id) AS "plannumber",
-			start_date
-		FROM subscriptions)
-	SELECT customer_id,
-		plannumber,
-		start_date
-	FROM cte_table2
-	WHERE plannumber = "1"),
-cte_table3 AS(
-	SELECT customer_id,
-	plan_id,
-	start_date
-FROM subscriptions
-WHERE plan_id = 3),
-cte_table4 AS(
-SELECT ROUND((DATEDIFF(c3.start_date, c1.start_date)),2) AS "days"
-FROM cte_table3 c3
-INNER JOIN cte_table1 c1
-ON c3.customer_id = c1.customer_id)
-SELECT "0 - 30" AS "Range",
-	COUNT(days) AS "Number of customers"
-FROM cte_table4
-WHERE days BETWEEN 0 and 30
-UNION(
-SELECT "31 - 60" AS "Range",
-	COUNT(days) AS "Number of customers"
-FROM cte_table4
-WHERE days BETWEEN 31 and 60)
-UNION(
-SELECT "61 - 90" AS "Range",
-	COUNT(days) AS "Number of customers"
-FROM cte_table4
-WHERE days BETWEEN 61 and 90)
-UNION(
-SELECT "91 - 120" AS "Range",
-	COUNT(days) AS "Number of customers"
-FROM cte_table4
-WHERE days BETWEEN 91 and 120)
-UNION(
-SELECT "120+" AS "Range",
-	COUNT(days) AS "Number of customers"
-FROM cte_table4
-WHERE days > 120);
+WITH annual_plan AS (SELECT customer_id,
+                            start_date AS annual_date
+                     FROM subscriptions
+                     WHERE plan_id = 3),
+
+     trial_date AS (SELECT customer_id,
+                           start_date AS trial_date
+                    FROM subscriptions
+                    WHERE plan_id = 0),
+
+     day_period AS (SELECT FLOOR(DATEDIFF(annual_date, trial_date) / 30) AS diff
+                    FROM trial_date
+                    LEFT JOIN annual_plan ON trial_date.customer_id = annual_plan.customer_id
+                    WHERE annual_plan.customer_id IS NOT NULL)
+
+SELECT CONCAT((diff * 30) + 1, ' - ', (diff + 1) * 30) AS "Range",
+       COUNT(diff)                                     AS "Number of customers"
+FROM day_period
+GROUP BY CONCAT((diff * 30) + 1, ' - ', (diff + 1) * 30), diff
+ORDER BY diff;
 ```
 
-|Range|Number of customers|
-|-----|-----|
-|0 - 30|49|
-|31 - 60|24|
-|61 - 90|34|
-|91 - 120|35|
-|120+|116|
+| Range     | Number of customers |
+|-----------|---------------------|
+| 1 - 30    | 48                  |
+| 31 - 60   | 25                  |
+| 61 - 90   | 33                  |
+| 91 - 120  | 35                  |
+| 121 - 150 | 43                  |
+| 151 - 180 | 35                  |
+| 181 - 210 | 27                  |
+| 211 - 240 | 4                   |
+| 241 - 270 | 5                   |
+| 271 - 300 | 1                   |
+| 301 - 330 | 1                   |
+| 331 - 360 | 1                   |
 
 ***
 
 ### 11. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
 
 ```sql
-WITH cte_table AS(
-SELECT customer_id AS "customerid",
-	plan_id AS "planid",
-	LEAD(plan_id, 1) OVER(PARTITION BY customer_id ORDER BY plan_id) AS "nextplan"
-FROM subscriptions)
+WITH cte_table AS (SELECT customer_id                                                       AS "customerid",
+                          plan_id                                                           AS "planid",
+                          LEAD(plan_id, 1) OVER (PARTITION BY customer_id ORDER BY plan_id) AS "nextplan"
+                   FROM subscriptions)
+
 SELECT COUNT(customerid) AS "Number of customers"
 FROM cte_table
-WHERE planid = 2 AND nextplan = 1;
+WHERE planid = 2
+  AND nextplan = 1;
 ```
 
 |Number of customers|
